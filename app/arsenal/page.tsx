@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import ArsenalClient from './ArsenalClient';
 import JsonLd from '@/components/seo/JsonLd';
-import { constructMetadata, getSiteUrl } from '@/lib/seo';
+import { constructMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = constructMetadata({
   title: 'L\'Arsenal | Outils & Stratégies pour Bâtisseurs',
@@ -11,8 +11,6 @@ export const metadata: Metadata = constructMetadata({
 });
 
 export default function Page() {
-  const siteUrl = getSiteUrl();
-
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -21,13 +19,13 @@ export default function Page() {
         "@type": "ListItem",
         "position": 1,
         "name": "Accueil",
-        "item": siteUrl
+        "item": "https://ais-pre-a36fbywvihynxexq42vuem-20309527964.europe-west2.run.app"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Arsenal",
-        "item": `${siteUrl}/arsenal`
+        "item": "https://ais-pre-a36fbywvihynxexq42vuem-20309527964.europe-west2.run.app/arsenal"
       }
     ]
   };

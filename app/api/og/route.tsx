@@ -52,9 +52,6 @@ export async function GET(req: NextRequest) {
       {
         width: 1200,
         height: 630,
-        headers: {
-          'cache-control': 'public, immutable, no-transform, max-age=31536000',
-        },
       }
     );
   } catch (e: any) {

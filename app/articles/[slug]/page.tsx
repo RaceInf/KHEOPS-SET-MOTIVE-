@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { blogPosts, tools } from '@/lib/data';
 import ArticleActions from '@/components/ArticleActions';
 import JsonLd from '@/components/seo/JsonLd';
-import { constructMetadata, getSiteUrl } from '@/lib/seo';
+import { constructMetadata } from '@/lib/seo';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -44,8 +44,6 @@ export default async function BlogPostPage({ params }: PageProps) {
     notFound();
   }
 
-  const siteUrl = getSiteUrl();
-
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -61,12 +59,12 @@ export default async function BlogPostPage({ params }: PageProps) {
       "name": "Kheops Set Motivation",
       "logo": {
         "@type": "ImageObject",
-        "url": `${siteUrl}/logo.png`
+        "url": "https://ais-pre-a36fbywvihynxexq42vuem-20309527964.europe-west2.run.app/logo.png"
       }
     },
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `${siteUrl}/articles/${post.id}`
+      "@id": `https://ais-pre-a36fbywvihynxexq42vuem-20309527964.europe-west2.run.app/articles/${post.id}`
     }
   };
 
@@ -78,19 +76,19 @@ export default async function BlogPostPage({ params }: PageProps) {
         "@type": "ListItem",
         "position": 1,
         "name": "Accueil",
-        "item": siteUrl
+        "item": "https://ais-pre-a36fbywvihynxexq42vuem-20309527964.europe-west2.run.app"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Archives",
-        "item": `${siteUrl}/articles`
+        "item": "https://ais-pre-a36fbywvihynxexq42vuem-20309527964.europe-west2.run.app/articles"
       },
       {
         "@type": "ListItem",
         "position": 3,
         "name": post.title,
-        "item": `${siteUrl}/articles/${post.id}`
+        "item": `https://ais-pre-a36fbywvihynxexq42vuem-20309527964.europe-west2.run.app/articles/${post.id}`
       }
     ]
   };
