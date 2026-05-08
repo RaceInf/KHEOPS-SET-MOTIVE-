@@ -1,8 +1,13 @@
 import { Metadata } from 'next';
 
 export const getSiteUrl = () => {
-  if (process.env.NEXT_PUBLIC_APP_URL) return process.env.NEXT_PUBLIC_APP_URL;
-  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
+  if (process.env.NEXT_PUBLIC_APP_URL) {
+    return process.env.NEXT_PUBLIC_APP_URL.replace(/\/$/, '');
+  }
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+  // This is the fallback for production build if env vars are missing
   return 'https://kheopsetmotivation.com';
 };
 
@@ -33,7 +38,11 @@ export function constructMetadata({
     generatedOgUrl.searchParams.set('type', ogTypeLabel);
   }
 
-  const ogImageUrl = image ? `${siteUrl}${image}` : generatedOgUrl.toString();
+  // Ensure image URL is absolute
+  let ogImageUrl = generatedOgUrl.toString();
+  if (image) {
+    ogImageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
+  }
 
   return {
     metadataBase: new URL(siteUrl),
@@ -60,6 +69,12 @@ export function constructMetadata({
       ],
       type,
     },
+    ...(type === 'article' && {
+      other: {
+        'article:author': 'Kheops Set',
+        'article:publisher': 'https://www.facebook.com/KheopsSetMotivation',
+      }
+    }),
     twitter: {
       card: 'summary_large_image',
       title,
